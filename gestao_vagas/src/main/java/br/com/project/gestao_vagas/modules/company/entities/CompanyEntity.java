@@ -1,4 +1,4 @@
-package br.com.project.gestao_vagas.modules.candidate;
+package br.com.project.gestao_vagas.modules.company.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,17 +14,27 @@ import org.hibernate.validator.constraints.Length;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Entity(name = "company")
 @Data
-@Entity(name = "candidate")
-public class CandidateEntity {
+public class CompanyEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private String name;
 
+    @NotBlank()
+    @Pattern(regexp = "\\S+", message = "The [username] field must not contain spaces")
+    private String username;
+
+    @Email(message = "The [email] field must contain a valid email address")
+    private String email;
+
+    @Length(min = 10, max = 100, message = "The password must contain between [10] and [100] characters")
+    private String password;
+
+    private String website;
+    private String name;
     private String description;
-    private String curriculum;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

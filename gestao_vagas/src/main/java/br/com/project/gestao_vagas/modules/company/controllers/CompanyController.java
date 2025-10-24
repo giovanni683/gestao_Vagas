@@ -1,7 +1,8 @@
-package br.com.project.gestao_vagas.modules.candidate.controllers;
+package br.com.project.gestao_vagas.modules.company.controllers;
 
-import br.com.project.gestao_vagas.modules.candidate.useCases.CreateCandidateUseCase;
+
 import br.com.project.gestao_vagas.modules.company.entities.CompanyEntity;
+import br.com.project.gestao_vagas.modules.company.useCases.CreateCompanyUseCase;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,20 +12,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/candidate")
-public class CandidateController {
+@RequestMapping("/company")
+public class CompanyController {
 
     @Autowired
-    private CreateCandidateUseCase createCandidateUseCase;
+    private CreateCompanyUseCase createCompanyUseCase;
 
     @PostMapping("/")
     public ResponseEntity<Object> create(@Valid @RequestBody CompanyEntity companyEntity) {
         try {
-          var result = this.createCandidateUseCase.execute(companyEntity);
-        return ResponseEntity.ok().body(result);
+            var result = this.createCompanyUseCase.execute(companyEntity);
+            return ResponseEntity.ok().body(result);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-
     }
 }
